@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Main from './components/Main';
@@ -21,7 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route
               path="/main"
-              element={localStorage.getItem('token') ? <Main /> : <Navigate to="/login" />}
+              element={<Main/>}
             />
           </Routes>
         </div>

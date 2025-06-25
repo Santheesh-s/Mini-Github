@@ -20,15 +20,18 @@
     "jsonwebtoken": "^9.0.2",
     "dotenv": "^16.4.5"
   },
+  "engines": {
+  "node": ">=16.0.0"
+},
+
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
   "scripts": {
-    "start": "npm run build && node server.js",
-    "server": "node server.js",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
-    "build": "react-scripts build"
-  },
+  "start": "GENERATE_SOURCEMAP=false NODE_OPTIONS=--max_old_space_size=256 npm run build && node server.js",
+  "build": "react-scripts build",
+  "server": "node server.js"
+},
   "eslintConfig": {
     "extends": [
       "react-app",

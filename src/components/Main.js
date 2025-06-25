@@ -231,7 +231,6 @@ function Main() {
       }
     } catch {}
   };
-
   // Start editing file (replace)
   const startEditFile = (fileId) => {
     setEditingFileId(fileId);
@@ -278,7 +277,8 @@ function Main() {
           <input
             type="text"
             placeholder="New repository name"
-            value={newRepo}
+            value={newRepo} 
+            required
             onChange={e => setNewRepo(e.target.value)}
             style={{marginRight: 8}}
           />
@@ -297,7 +297,8 @@ function Main() {
                 <form onSubmit={handleEditRepo} style={{display: 'inline'}}>
                   <input
                     type="text"
-                    value={editRepoName}
+                    value={editRepoName} 
+                    required
                     onChange={e => setEditRepoName(e.target.value)}
                     style={{marginLeft: 8, marginRight: 8}}
                   />
@@ -329,39 +330,33 @@ function Main() {
       <ul className="uploaded-files-list">
         {files.map((file, idx) => (
           <li key={file._id || idx}>
-            <span role="img" aria-label="file">📄</span> {file.originalname}
-            <button style={{marginLeft: 8}} onClick={() => handleDownloadFile(file._id, file.originalname)}>Download</button>
-            <button style={{marginLeft: 8}} onClick={() => handleDeleteFile(file._id)}>Delete</button>
-            
-            {editingFileId === file._id ? (
-              <>
-              <label style={{
-                display: 'inline-block',
-                marginLeft: 8,
-                padding: '6px 12px',
-                background: '#0366d6',
-                color: '#fff',
-                borderRadius: 4,
-                cursor: 'pointer'
-                }}>
-              Browse
-                <input
-                  type="file"
-                  onChange={e => handleUpdateFile(file._id, e)}
-                  style={{ display: 'none' }}
-                />
-                </label>
-                <button style={{marginLeft: 8}} onClick={() => setEditingFileId(null)}>Cancel</button>
-              </>
-            ) : (
-              <button style={{marginLeft: 8}} onClick={() => startEditFile(file._id)}>Update</button>
-            )}
-          </li>
+  <div className="file-name">
+    <span role="img" aria-label="file">📄</span> {file.originalname}
+  </div>
+  <div className="file-actions">
+  <button onClick={() => handleDownloadFile(file._id, file.originalname)}>Download</button>
+  <button onClick={() => handleDeleteFile(file._id)}>Delete</button>
+
+  {editingFileId === file._id ? (
+    <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0', gap: '6px' }}>
+      <label className="update-label">
+        Browse
+        <input
+          type="file"
+          onChange={e => handleUpdateFile(file._id, e)}
+        />
+      </label>
+      <button onClick={() => setEditingFileId(null)}>Cancel</button>
+    </div>
+  ) : (
+    <button onClick={() => startEditFile(file._id)}>Update</button>
+  )}
+</div>
+
+</li>
         ))}
       </ul>
     </div>
   );
 }
-
 export default Main;
-
